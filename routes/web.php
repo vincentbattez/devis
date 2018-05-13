@@ -15,7 +15,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/devis', 'pdfController@devis');
+/*———————————————————————————————————*\
+        $ AUTH
+\*———————————————————————————————————*/
 Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
+
+/*———————————————————————————————————*\
+        $ PDF
+\*———————————————————————————————————*/
+Route::get('/devis', 'pdfController@devis')->name('pdf.devis');
