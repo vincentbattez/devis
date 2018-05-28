@@ -19,6 +19,7 @@ class VbdTasks extends Migration
             $table->text('tasks');
             $table->integer('duration');
             $table->tinyInteger('type');
+            $table->tinyInteger('free');
             $table->string('category');
             $table->timestamps();
         });
