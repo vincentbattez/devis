@@ -11,15 +11,15 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index')->name('home');
 
+Route::resource('customer', 'CustomersController');
+Route::resource('task',     'TasksController');
+Route::resource('devis',    'DevisController');
 /*———————————————————————————————————*\
         $ AUTH
 \*———————————————————————————————————*/
 Auth::routes();
-Route::get('/home', 'HomeController@index')->name('home');
 
 /*———————————————————————————————————*\
         $ PDF
