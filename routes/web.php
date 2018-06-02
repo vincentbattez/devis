@@ -24,4 +24,4 @@ Auth::routes();
 /*———————————————————————————————————*\
         $ PDF
 \*———————————————————————————————————*/
-Route::get('/devis', 'pdfController@devis')->name('pdf.devis');
+Route::get('/pdf/devis', 'PdfController@devis')->name('pdf.devis');

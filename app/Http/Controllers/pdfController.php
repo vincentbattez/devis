@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use PDF;
 
-class pdfController extends Controller
+class PdfController extends Controller
 {
     public function devis() {
         $data = ['toto'];
