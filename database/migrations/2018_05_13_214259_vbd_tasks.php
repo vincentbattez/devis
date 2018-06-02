@@ -16,9 +16,9 @@ class VbdTasks extends Migration
         Schema::create('vbd_tasks', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
-            $table->text('tasks');
-            $table->integer('duration');
-            $table->tinyInteger('free');
+            $table->text('tasks')->nullable();
+            $table->integer('duration')->nullable();
+            $table->tinyInteger('free')->default('0');
             $table->string('category');
             $table->timestamps();
         });

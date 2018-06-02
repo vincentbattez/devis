@@ -17,20 +17,20 @@ class VbdCustomers extends Migration
             $table->increments('id');
             $table->string('firstname');
             $table->string('lastname');
-            $table->tinyInteger('gender');
-            $table->dateTime('birthday');
-            $table->string('nationality');
+            $table->tinyInteger('gender')->nullable();
+            $table->dateTime('birthday')->nullable();
+            $table->string('nationality')->nullable();
 
-            $table->string('county');
-            $table->string('region');
-            $table->string('city');
-            $table->string('postal');
-            $table->string('address');
+            $table->string('county')->nullable();
+            $table->string('region')->nullable();
+            $table->string('city')->nullable();
+            $table->string('postal')->nullable();
+            $table->string('address')->nullable();
             
             $table->string('email');
             $table->string('phone');
             $table->string('company_name');
-            $table->string('job');
+            $table->string('job')->nullable();
 
             $table->timestamps();
         });
