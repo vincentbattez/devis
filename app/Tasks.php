@@ -8,6 +8,7 @@ class Tasks extends Model
 {
     protected $table = 'vbd_tasks';
     protected $fillable = [
+        'id_devis',
         'title',
         'tasks',
         'duration',

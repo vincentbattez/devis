@@ -7,6 +7,7 @@ use App\Tasks;
 use App\Customer;
 use App\Devis_task;
 use App\Cgu;
+use App\User;
 use Auth;
 
 use Illuminate\Http\Request;
@@ -50,31 +51,6 @@ class DevisController extends Controller {
      */
     public function store(Request $request)
     {
-        //---------------------------------
-        //---------- CREATE TASK ----------
-        //---------------------------------
-        $free = ($request->input('task-free') === null) ? 0 : 1; 
-
-        // Si la tache est payant, remplis toutes les champs
-        // Sinon, remplace certains champs par "null"
-        if($free === 0) {
-            $newTask = Tasks::create([
-                'title'    => $request->input('task-title'),
-                'duration' => $request->input('task-duration'),
-                'tasks'    => $request->input('task-tasks'),
-                'category' => $request->input('task-category'),
-                'free'     => $free
-            ]);
-        }else {
-            $newTask = Tasks::create([
-                'title'    => $request->input('task-title'),
-                'duration' => null,
-                'tasks'    => $request->input('task-tasks'),
-                'category' => $request->input('task-category'),
-                'free'     => $free
-            ]);
-        }
-
         //----------------------------------
         //---------- CREATE DEVIS ----------
         //----------------------------------
@@ -87,13 +63,32 @@ class DevisController extends Controller {
             'prestation_start' => $request->input('devis-prestation_start'),
             'working_time'     => $request->input('devis-working_time')
         ]);
-        //---------------------------------------
-        //---------- CREATE DEVIS_TASK ----------
-        //---------------------------------------
-        Devis_task::create([
-            'id_tasks' => $newTask->id,
-            'id_devis' => $newDevis->id
-        ]);
+        //---------------------------------
+        //---------- CREATE TASK ----------
+        //---------------------------------
+        $free = ($request->input('task-free') === null) ? 0 : 1; 
+
+        // Si la tache est payant, remplis toutes les champs
+        // Sinon, remplace certains champs par "null"
+        if($free === 0) {
+            $newTask = Tasks::create([
+                'id_devis' => $newDevis->id,
+                'title'    => $request->input('task-title'),
+                'duration' => $request->input('task-duration'),
+                'tasks'    => $request->input('task-tasks'),
+                'category' => $request->input('task-category'),
+                'free'     => $free
+            ]);
+        }else {
+            $newTask = Tasks::create([
+                'id_devis' => $newDevis->id,
+                'title'    => $request->input('task-title'),
+                'duration' => null,
+                'tasks'    => $request->input('task-tasks'),
+                'category' => $request->input('task-category'),
+                'free'     => $free
+            ]);
+        }
         return redirect()->route('devis.index');
     }
 
