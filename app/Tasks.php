@@ -16,4 +16,18 @@ class Tasks extends Model
         'free',
         'category',
     ];
+    protected $appends = [
+        'calculs'
+    ];
+
+    public function devis() {
+        return $this->belongsTo('App\Devis', 'id_devis');
+    }
+
+    public function getCalculsAttribute() {
+        return (object) [
+            'day' => round($this->duration / $this->devis->working_time, 0),
+        ];
+    }
+
 }

@@ -16,9 +16,12 @@ class Devis extends Model
         'title',
         'prestation_start',
         'working_time',
+        'working_price',
     ];
     protected $appends = [
         'human',
+        'nb_type',
+        'calculs',
     ];
     protected $dates = [
         'created_at',
@@ -47,10 +50,16 @@ class Devis extends Model
         setlocale(LC_TIME, "fr_FR");
         
         return (object) [
-            'human'   => (object) [
-                'prestation_start' => $this->prestation_start->formatLocalized('%d %B %Y'),
-                'created_at'       => $this->created_at->formatLocalized('%d %B %Y')
-            ],
+            'prestation_start' => $this->prestation_start->formatLocalized('%d %B %Y'),
+            'created_at'       => $this->created_at->formatLocalized('%d %B %Y')
         ];
+    }
+
+    public function getNbTypeAttribute() {
+        $firstLetter = ucfirst($this->type[0]);
+        $lastLetter  = ucfirst(substr($this->type, -1));
+        $nbType      = $this->where('type', 'like', $this->type)->count('type');
+
+        return $firstLetter . $lastLetter . $nbType;
     }
 }

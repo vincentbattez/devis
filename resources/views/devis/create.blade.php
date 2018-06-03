@@ -37,13 +37,17 @@
               </div>
             </div>
             <div class="form-row">            
-              <div class="form-group col-sm-6">
+              <div class="form-group col-sm-4">
                 <label>Date du début de la prestation</label>
                 <input type="date" name="devis-prestation_start" class="form-control" required>
               </div>
-              <div class="form-group col-sm-6">
+              <div class="form-group col-sm-4">
                 <label>Nombre d'heure de travail par jour</label>
                 <input type="number" name="devis-working_time" class="form-control" required max="24">
+              </div>
+              <div class="form-group col-sm-4">
+                <label>Prix à l'heure</label>
+                <input type="number" name="devis-working_price" class="form-control" required>
               </div>
             </div>
           </div>

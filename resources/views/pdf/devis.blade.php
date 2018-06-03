@@ -49,21 +49,21 @@
 
     <div class="block-left va-t">
       <div>
-        <img src="http://via.placeholder.com/150x150" alt="logo de prenom nom" class="va-t">
-        <span>prenom nom</span>
+        <img src="{{$devis->user->logo}}" alt="logo de prenom nom" class="va-t">
+        <span>{{$devis->user->firstname}} {{$devis->user->lastname}}</span>
       </div>
       <div>
-        <img src="http://via.placeholder.com/30x30" alt="" class="va-m"> <span>(+33)7 85 59 80 48</span>
-        <img src="http://via.placeholder.com/30x30" alt="" class="va-m"> <span>vincent.battez.pro@gmail.com</span>
+        <img src="http://via.placeholder.com/30x30" alt="" class="va-m"> <span>{{$devis->user->phone}}</span>
+        <img src="http://via.placeholder.com/30x30" alt="" class="va-m"> <span>{{$devis->user->email}}</span>
       </div>
     </div>
 
     <div class="block-right">
       <div>DEVIS</div>
       <ul>
-        <li>Date du devis: {{$todayHuman}}</li>
-        <li>Devis n°: 002</li>
-        <li>Référence: W002</li>
+        <li>Date du devis: {{$devis->human->created_at}}</li>
+        <li>Devis n°: {{$devis->id}}</li>
+        <li>Référence: {{$devis->nb_type}}</li>
       </ul>
     </div>
 
@@ -71,7 +71,7 @@
 
 
     <p><b>Intitulé</b>: {{$devis->title}}</p>
-    <p><b>Début de la prestation</b>: {{$prestation_start}}</p>
+    <p><b>Début de la prestation</b>: {{$devis->human->prestation_start}}</p>
     <table>
       <thead>
         <tr style="text-align:left;">
@@ -83,18 +83,21 @@
       </thead>
       {{-- TASK --}}
       <tbody class="tasks">
-        <tr class="task">
-          <td>
-            <h3>Conception des Wireframes</h3>
-            <ul>
-              <li>Réflexion sur l’ergonomie du site web (UX)</li>
-              <li>Schéma global du site web (sans design)</li>
-            </ul>
-          </td>
-          <td>20h</td>
-          <td>07/06/2018 (7 jours)</td>
-          <td>300,00 €</td>
-        </tr>
+        @php($i = 0)
+        @php($totalDay = 0)
+        @foreach ($devis->tasks as $task)
+          @php($totalDay += $task->calculs->day)
+          <tr class="task">
+            <td>
+              <h3 class="titre">{{ $task->title }}</h3>
+              {!! $task->tasks !!}
+            </td>
+            <td class="duration">{{ $task->duration }}h</td>
+            <td class="date">{{$task->devis->prestation_start->addDays($totalDay)}} ({{$task->calculs->day}} jours)</td>
+            <td class="price">{{$devis->working_price * $task->duration }}€</td>
+          </tr>
+          @php($i++)
+        @endforeach
       </tbody>
       <tfoot>
         <tr>

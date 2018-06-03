@@ -29,6 +29,7 @@ class VbdDevis extends Migration
             $table->string('title');
             $table->timestamp('prestation_start')->default(null);
             $table->integer('working_time');
+            $table->integer('working_price');
             
             $table->timestamps();
         });

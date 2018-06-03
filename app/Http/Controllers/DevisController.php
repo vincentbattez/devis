@@ -61,7 +61,8 @@ class DevisController extends Controller {
             'type'             => $request->input('devis-type'),
             'title'            => $request->input('devis-title'),
             'prestation_start' => $request->input('devis-prestation_start'),
-            'working_time'     => $request->input('devis-working_time')
+            'working_time'     => $request->input('devis-working_time'),
+            'working_price'    => $request->input('devis-working_price')
         ]);
         //---------------------------------
         //---------- CREATE TASK ----------

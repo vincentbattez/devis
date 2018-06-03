@@ -17,6 +17,7 @@
               <li>type : {{$singleDevis->type}}</li>
               <li>prestation start : {{$singleDevis->prestation_start}}</li>
               <li>{{$singleDevis->working_time}}h / jours</li>
+              <li>{{$singleDevis->working_price}}€ / heures</li>
               <li><a href="{{route('pdf.devis', ['id_devis' => $singleDevis->id])}}" class="btn btn-primary">PDF</a></li>
             @endforeach
           </ul>
