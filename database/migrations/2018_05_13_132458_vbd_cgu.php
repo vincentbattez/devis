@@ -15,6 +15,7 @@ class VbdCgu extends Migration
     {
         Schema::create('vbd_cgu', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('type')->unique();
             $table->text('cgu');
         });
     }

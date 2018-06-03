@@ -22,9 +22,12 @@ class VbdDevis extends Migration
             $table->unsignedInteger('id_cgu')->index();
             $table->foreign('id_cgu')->references('id')->on('vbd_cgu')->onDelete('cascade');
 
+            $table->unsignedInteger('id_customer')->index();
+            $table->foreign('id_customer')->references('id')->on('vbd_customers')->onDelete('cascade');
+
             $table->string('type');
             $table->string('title');
-            $table->date('prestation_start');
+            $table->timestamp('prestation_start')->default(null);
             $table->integer('working_time');
             
             $table->timestamps();

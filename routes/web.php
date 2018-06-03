@@ -13,9 +13,9 @@
 
 Route::get('/', 'HomeController@index')->name('home');
 
-Route::resource('customer', 'CustomersController');
-Route::resource('task',     'TasksController');
-Route::resource('devis',    'DevisController');
+Route::resource('customer', 'CustomersController')->middleware('auth');
+Route::resource('task',     'TasksController')->middleware('auth');
+Route::resource('devis',    'DevisController')->middleware('auth');
 /*———————————————————————————————————*\
         $ AUTH
 \*———————————————————————————————————*/
@@ -24,4 +24,4 @@ Auth::routes();
 /*———————————————————————————————————*\
         $ PDF
 \*———————————————————————————————————*/
-Route::get('/pdf/devis', 'PdfController@devis')->name('pdf.devis');
+Route::get('/pdf/devis/{id_devis}', 'PdfController@devis')->name('pdf.devis')->middleware('auth');

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Customers;
+use App\Customer;
 
 class CustomersController extends Controller
 {
@@ -35,7 +35,7 @@ class CustomersController extends Controller
      */
     public function store(Request $request)
     {
-        Customers::create($request->all());
+        Customer::create($request->all());
         return redirect()->route('home');
     }
 

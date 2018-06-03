@@ -15,6 +15,8 @@ class VbdUsers extends Migration
     {
         Schema::create('vbd_users', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('firstname');
+            $table->string('lastname');
             $table->string('logo')->nullable();
             $table->string('email')->unique();
             $table->string('password');

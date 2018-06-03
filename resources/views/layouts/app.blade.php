@@ -46,7 +46,8 @@
                             <li><a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a></li>
                         @else
                             <li><a class="nav-link" href="{{ route('home') }}">{{ __('Dashboard') }}</a></li>
-                            <li><a class="nav-link" href="{{ route('home') }}">{{ __('Créer un devis') }}</a></li>
+                            <li><a class="nav-link" href="{{ route('devis.index') }}">{{ __('Liste des devis') }}</a></li>
+                            <li><a class="nav-link" href="{{ route('devis.create') }}">{{ __('Créer un devis') }}</a></li>
                             <li><a class="nav-link btn btn-secondary" href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
                                             document.getElementById('logout-form').submit();">
