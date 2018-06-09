@@ -62,4 +62,28 @@ class Devis extends Model
 
         return $firstLetter . $lastLetter . $nbType;
     }
+
+    public function getCalculsAttribute() {   
+        $price_full = 0;
+        $day        = 0;
+
+        foreach ($this->tasks as $task) {
+            $price_full += $this->working_price * $task->duration;
+            $day        += round($task->duration / $this->working_time, 0);
+        }
+        $price_decimal = priceDecimal($price_full);
+        $price_centime = priceCentime($price_full);
+
+        $day_human = $this->prestation_start->addDays($day)->formatLocalized('%d %B %Y');
+
+        return (object) [
+            'day'       => $day,
+            'day_human' => $day_human,
+            'price'     => (object) [
+                'full'    => $price_full,
+                'decimal' => $price_decimal,
+                'centime' => $price_centime
+            ]
+        ];
+    }
 }

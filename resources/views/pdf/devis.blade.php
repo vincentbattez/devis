@@ -3,25 +3,138 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  {{-- <link href="https://fonts.googleapis.com/css?family=Rubik:300,regular,500,700,900" rel="stylesheet" /> --}}
 </head>
 <style>
-  .A4 {
-    max-width: 21cm;
-    min-width: 21cm;
-    width:     21cm;
-    position: relative;
+  /* latin */
+  @font-face {
+    font-family: 'Rubik';
+    font-style: normal;
+    font-weight: 300;
+    src: local('Rubik Light'), local('Rubik-Light'), url({{ asset('fonts/Rubik-Light.ttf') }}) format('truetype');
   }
-  table {
-    width:100%
+  /* latin */ 
+  @font-face {
+    font-family: 'Rubik';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Rubik'), local('Rubik-Regular'), url({{ asset('fonts/Rubik-Regular.ttf') }}) format('truetype');
+  }
+  /* latin */
+  @font-face {
+    font-family: 'Rubik';
+    font-style: normal;
+    font-weight: 500;
+    src: local('Rubik Medium'), local('Rubik-Medium'), url({{ asset('fonts/Rubik-Medium.ttf') }}) format('truetype');
+  }
+  /* latin */
+  @font-face {
+    font-family: 'Rubik';
+    font-style: normal;
+    font-weight: 700;
+    src: local('Rubik Bold'), local('Rubik-Bold'), url({{ asset('fonts/Rubik-Bold.ttf') }}) format('truetype');
+  }
+  /* latin */
+  @font-face {
+    font-family: 'Rubik';
+    font-style: normal;
+    font-weight: 900;
+    src: local('Rubik Black'), local('Rubik-Black'), url({{ asset('fonts/Rubik-Black.ttf') }}) format('truetype');
+  }
+  .page-break {
+      page-break-after: always;
+  }
+  *:not(ul) {
+    padding:     0;
+    margin:      0;
+    font-family: 'Rubik';
+    font-size:   16px;
+    font-weight: 400;
   }
 
-  td > ul {
+  b {
+    font-weight: 600;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
     margin: 0;
   }
 
+  li {
+    padding-left: 1em; 
+    text-indent: -1.8px;
+  }
+
+  li::before {
+    content:      "•";
+    color:        #2f64d3;
+    font-size:    21px;
+    line-height:  8px;
+    text-indent:  0px;
+    display:      inline-block;
+    margin-right: 5px;
+    margin-left:  -11px;
+  }
+  .A4 {
+    /* max-width: 21cm;
+    min-width: 21cm;
+    width:     21cm; */
+    position:  relative;
+  }
+  table {
+    width:100%;
+    border-collapse:collapse;
+  }
+
+  td > ul {
+    padding-left: 15px;
+  }
+
+  td ul li:not(:last-child) {
+    margin-bottom: 5px;
+  }
+
+  tbody tr:nth-child(even) {
+    background-color: rgba(46, 101, 211, .07);
+  }
+
   td, th {
-    padding: 10px;
+    padding: 20px 10px;
+  }
+
+  th {
+    text-align: center;
+    font-weight: 500;
+  }
+  th:first-child {
+    text-align: left;
+  }
+
+  .task:last-child ul {
+    margin-bottom: 0;
+  }
+
+  thead,
+  tfoot{
+    color: white;
+    background-color: #2E65D3;
+  }
+  /* tbody tr:not(:last-child):not(.free) td {
+    padding-bottom: 0;
+  } */
+
+  tfoot td {
+    text-align: right;
+    background-color: #3458B8;
+  }
+  tfoot th {
+    text-align: right !important;
+  }
+  .nb-day {
+    font-size: 12px;
   }
 
   .va-t {
@@ -29,6 +142,10 @@
   }
   .va-m {
     vertical-align: middle;
+  }
+
+  .user {
+    display: flex;
   }
 
   .block-left {
@@ -43,18 +160,81 @@
     top: 0;
     right: 0;
   }
+
+  .price {
+    text-align: right;
+    font-weight: 500;
+  }
+  .duration,
+  .date {
+    text-align: center;
+  }
+
+  .titre:not(:last-child) {
+    margin-bottom: 10px;
+  }
+  .titre {
+    margin: 0;
+    font-weight: 500;
+  }
+
+  .free {
+    color: #1DB100;
+    background-color: #F2FFF7;
+  }
+  .free .price {
+    text-transform: uppercase;
+  }
+  .devis-header {
+    margin-top: 40px;
+    padding-top: 15px;
+    position: relative;
+  }
+  .devis-header:before {
+    content:    '';
+    position:   absolute;
+    top:        0;
+    left:       0;
+    width:      300px;
+    height:     4px;
+    background: #2f64d3;
+    display:    inline-block;
+  }
+  .devis-title,
+  .devis-prestation_start {
+    margin-bottom: 15px;
+  }
+
+  .user-info img{
+    width: 25px;
+  }
+
+  .user-info p{
+    display: inline-block;
+  }
+  .user-info p:not(:last-child){
+    margin-right: 40px;
+  }
+
 </style>
 <body class="A4">
-  <div class="main" style="background: grey;">
+  <div class="main">
 
     <div class="block-left va-t">
-      <div>
+      <div class="user">
         <img src="{{$devis->user->logo}}" alt="logo de prenom nom" class="va-t">
-        <span>{{$devis->user->firstname}} {{$devis->user->lastname}}</span>
+        <div class="user-text">
+          <p class="user-name">{{$devis->user->firstname}} {{$devis->user->lastname}}</p>
+          <p class="user-job">{{$devis->user->job}}</p>
+        </div>
       </div>
-      <div>
-        <img src="http://via.placeholder.com/30x30" alt="" class="va-m"> <span>{{$devis->user->phone}}</span>
-        <img src="http://via.placeholder.com/30x30" alt="" class="va-m"> <span>{{$devis->user->email}}</span>
+      <div class="user-info">
+        <p>
+          <img src="{{ asset('img/icon-phone.png') }}" class="va-m"> <span>{{$devis->user->phone}}</span>
+        </p>
+        <p>
+          <img src="{{ asset('img/icon-email.png') }}" class="va-m"> <span>{{$devis->user->email}}</span>
+        </p>
       </div>
     </div>
 
@@ -67,46 +247,50 @@
       </ul>
     </div>
 
+    <div class="devis-header">
+      <p class="devis-title"><b>Intitulé</b>: {{$devis->title}}</p>
+      <p class="devis-prestation_start"><b>Début de la prestation</b>: {{$devis->human->prestation_start}}</p>
+    </div>
 
 
-
-    <p><b>Intitulé</b>: {{$devis->title}}</p>
-    <p><b>Début de la prestation</b>: {{$devis->human->prestation_start}}</p>
     <table>
+
       <thead>
         <tr style="text-align:left;">
           <th>Description</th>
-          <th>Heures</th>
+          <th>Durée</th>
           <th>Date de livraison théorique</th>
           <th>Montant</th>
         </tr>
       </thead>
+      
       {{-- TASK --}}
       <tbody class="tasks">
-        @php($i = 0)
-        @php($totalDay = 0)
         @foreach ($devis->tasks as $task)
-          @php($totalDay += $task->calculs->day)
-          <tr class="task">
-            <td>
+          <tr class="task{{ ($task->free === 0) ? '' : ' free' }}">
+            <td {{ ($task->free === 0) ? '' : 'colspan=3' }}>
               <h3 class="titre">{{ $task->title }}</h3>
               {!! $task->tasks !!}
             </td>
-            <td class="duration">{{ $task->duration }}h</td>
-            <td class="date">{{$task->devis->prestation_start->addDays($totalDay)}} ({{$task->calculs->day}} jours)</td>
-            <td class="price">{{$devis->working_price * $task->duration }}€</td>
+            @if($task->free === 0)
+              <td class="duration">{{ $task->duration }}h</td>
+              <td class="date">{{ $task->calculs->dayTotal_human }} <small class="nb-day">({{ $task->calculs->day }} jours)</small></td>
+              <td class="price">{{ $task->calculs->price->full }} €</td>
+            @else
+              <td class="price">Gratuit</td>
+            @endif
           </tr>
-          @php($i++)
         @endforeach
       </tbody>
+
       <tfoot>
         <tr>
-          <th>Date de livraison théorique :</th>
-          <td>16 juin 2019 <small>(23 jours)</small></td>
+          <th colspan="2">Date de livraison théorique :</th>
+          <td colspan="2">{{ $devis->calculs->day_human }} <small class="nb-day">({{ $devis->calculs->day }} jours)</small></td>
         </tr>
         <tr>
-          <th>Montant total prévisionnel :</th>
-          <td>2313 €</td>
+          <th colspan="2">Montant total prévisionnel :</th>
+          <td colspan="3" class="price">{{ $devis->calculs->price->decimal }},{{ $devis->calculs->price->centime }} €</td>
         </tr>
       </tfoot>
 
