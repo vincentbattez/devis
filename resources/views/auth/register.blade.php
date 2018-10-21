@@ -13,6 +13,34 @@
                 @csrf
 
               <div class="form-group row">
+                <label for="firstname" class="col-sm-4 col-form-label text-md-right">First Name</label>
+
+                <div class="col-md-6">
+                  <input id="firstname" type="firstname" class="form-control{{ $errors->has('firstname') ? ' is-invalid' : '' }}" name="firstname" value="{{ old('firstname') }}" autofocus required>
+
+                  @if ($errors->has('firstname'))
+                    <span class="invalid-feedback">
+                      <strong>{{ $errors->first('firstname') }}</strong>
+                    </span>
+                  @endif
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="lastname" class="col-sm-4 col-form-label text-md-right">Last Name</label>
+
+                <div class="col-md-6">
+                  <input id="lastname" type="lastname" class="form-control{{ $errors->has('lastname') ? ' is-invalid' : '' }}" name="lastname" value="{{ old('lastname') }}" autofocus required>
+
+                  @if ($errors->has('lastname'))
+                    <span class="invalid-feedback">
+                      <strong>{{ $errors->first('lastname') }}</strong>
+                    </span>
+                  @endif
+                </div>
+              </div>
+
+              <div class="form-group row">
                 <label for="email" class="col-sm-4 col-form-label text-md-right">Adresse mail</label>
 
                 <div class="col-md-6">

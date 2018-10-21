@@ -42,6 +42,12 @@
     font-weight: 900;
     src: local('Rubik Black'), local('Rubik-Black'), url({{ asset('fonts/Rubik-Black.ttf') }}) format('truetype');
   }
+  html, body {
+    height: 100%;
+  }
+  body {
+    position: relative;
+  }
   .page-break {
       page-break-after: always;
   }
@@ -79,10 +85,11 @@
     margin-left:  -11px;
   }
   .A4 {
-    /* max-width: 21cm;
+    max-width: 21cm;
     min-width: 21cm;
-    width:     21cm; */
+    width:     21cm;
     position:  relative;
+    margin: auto;
   }
   table {
     width:100%;
@@ -143,9 +150,8 @@
   .va-m {
     vertical-align: middle;
   }
-
-  .user {
-    display: flex;
+  .va-b {
+    vertical-align: bottom;
   }
 
   .block-left {
@@ -159,6 +165,18 @@
     position: absolute;
     top: 0;
     right: 0;
+  }
+  
+  .block-right td, .block-right th {
+    padding: 5px 0;
+  }
+
+  .block-right tr {
+    background-color: transparent !important;
+  }
+
+  .block-right th {
+    padding-right: 20px;
   }
 
   .price {
@@ -186,7 +204,7 @@
     text-transform: uppercase;
   }
   .devis-header {
-    margin-top: 40px;
+    margin-top: 100px;
     padding-top: 15px;
     position: relative;
   }
@@ -205,8 +223,11 @@
     margin-bottom: 15px;
   }
 
-  .user-info img{
-    width: 25px;
+  /*———————————————————————————————————*\
+      $ USER
+  \*———————————————————————————————————*/
+  .user {
+    /* display: flex; */
   }
 
   .user-info p{
@@ -216,40 +237,101 @@
     margin-right: 40px;
   }
 
+  .user-name {
+    font-size: 25px;
+  }
+
+  .user-job {
+    font-size: 20px;
+  }
+
+  .user-text {
+    display: inline-block;
+  }
+
+  .user-logo {
+    width: 100px;
+    height: 100px;
+    vertical-align: -20px;
+  }
+
+  .user-info img, .user-email img {
+    margin-right: 15px;
+  }
+
+  .user-info img {
+    width: 35px;
+    height: 35px;
+  }
+
+  .user-email img{
+    width: 45px;
+    height: 45px;
+  }
+
+  .type {
+    background:     #2E65D3;
+    text-align:     center;
+    padding:        40px 0;
+    color:          white;
+    font-size:      25px;
+    font-weight:    500;
+    letter-spacing: 8px;
+  }
+
+  .date-start {
+    color:       #2f65d3;
+    font-weight: bold;
+  }
+  
+  b {
+    font-weight: 500;
+  }
+
+
 </style>
 <body class="A4">
   <div class="main">
 
-    <div class="block-left va-t">
+    <div class="block-left">
       <div class="user">
-        <img src="{{$devis->user->logo}}" alt="logo de prenom nom" class="va-t">
+        <img class="user-logo" src="{{ asset('img/'.$devis->user->logo.'') }}" alt="logo de prenom nom">
         <div class="user-text">
           <p class="user-name">{{$devis->user->firstname}} {{$devis->user->lastname}}</p>
           <p class="user-job">{{$devis->user->job}}</p>
         </div>
       </div>
       <div class="user-info">
-        <p>
+        <p class="user-phone">
           <img src="{{ asset('img/icon-phone.png') }}" class="va-m"> <span>{{$devis->user->phone}}</span>
         </p>
-        <p>
+        <p class="user-email">
           <img src="{{ asset('img/icon-email.png') }}" class="va-m"> <span>{{$devis->user->email}}</span>
         </p>
       </div>
     </div>
 
     <div class="block-right">
-      <div>DEVIS</div>
-      <ul>
-        <li>Date du devis: {{$devis->human->created_at}}</li>
-        <li>Devis n°: {{$devis->id}}</li>
-        <li>Référence: {{$devis->nb_type}}</li>
-      </ul>
+      <div class="type">DEVIS</div>
+      <table>
+        <tr>
+          <th>Date du devis:</th>
+          <td>{{$devis->human->created_at}}</td>
+        </tr>
+        <tr>
+          <th>Devis n°:</th>
+          <td>{{$devis->id}}</td>
+        </tr>
+        <tr>
+          <th>Référence:</th>
+          <td>{{$devis->nb_type}}</td>
+        </tr>
+      </table>
     </div>
 
     <div class="devis-header">
-      <p class="devis-title"><b>Intitulé</b>: {{$devis->title}}</p>
-      <p class="devis-prestation_start"><b>Début de la prestation</b>: {{$devis->human->prestation_start}}</p>
+      <p class="devis-title"><b>Intitulé: </b>{{$devis->title}}</p>
+      <p class="devis-prestation_start"><b>Début de la prestation: </b><span class="date-start">{{ $devis->human->prestation_start }}</span></p>
     </div>
 
 
